@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <vip_membership>
+            <general>
+                <enabled>0</enabled>
+                <vip_order_status>processing</vip_order_status>
+            </general>
+        </vip_membership>
+    </default>
+</config>

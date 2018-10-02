@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magefox\Membership\Block\Account\Dashboard\VipStatus" name="customer_account_dashboard_vip_status" template="Magefox_Membership::account/dashboard/vip_status.phtml" after="-" />
+        </referenceContainer>
+    </body>
+</page>

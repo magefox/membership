@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
+    <type name="membership" label="Membership Product" modelInstance="Magefox\Membership\Model\Product\Type\Membership" indexPriority="50" sortOrder="50">
+        <customAttributes>
+            <attribute name="refundable" value="true"/>
+            <attribute name="is_real_product" value="false"/>
+        </customAttributes>
+    </type>
+</config>

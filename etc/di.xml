@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magefox\Membership\Api\VipCustomerManagementInterface" type="Magefox\Membership\Model\VipCustomerManagement"/>
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="get_customer_vip" type="Magefox\Membership\Plugin\CustomerGet"/>
+    </type>
+    <type name="Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="get_product_vip" type="Magefox\Membership\Plugin\ProductGet"/>
+    </type>
+</config>

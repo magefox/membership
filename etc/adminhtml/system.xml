@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="vip_membership" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>VIP Membership</label>
+            <tab>customer</tab>
+            <resource>Magento_Customer::config_customer</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>VIP Configuration</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable VIP Membership</label>
+                    <comment>Enable or disable VIP member functionality</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="vip_group" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>VIP Members Customer Group</label>
+                    <comment>When a customer becomes a VIP, which customer group do you want them moved to.</comment>
+                    <source_model>Magento\Customer\Model\Config\Source\Group</source_model>
+                </field>
+                <field id="vip_order_status" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Confirmed Order Status</label>
+                    <comment>When a VIP product is purchased, which order status should used to enable VIP status (Processing is the default)</comment>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+            </group>
+        </section>
+
+    </system>
+</config>

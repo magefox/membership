@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="vip_expiry" type="string" />
+        <attribute code="vip_order_id" type="string" />
+    </extension_attributes>
+    <extension_attributes for="Magento\Catalog\Api\Data\ProductInterface">
+        <attribute code="vip_length" type="integer" />
+        <attribute code="vip_length_unit" type="string" />
+    </extension_attributes>
+</config>
