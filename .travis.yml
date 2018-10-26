@@ -3,7 +3,6 @@ language: php
 sudo: false
 
 php:
-    - 7.0
     - 7.1
 
 cache:
@@ -15,9 +14,9 @@ install:
     - composer install --prefer-dist
 
 script:
-    - php vendor/bin/phpcs --standard=PSR2 Block/ Controller/ Helper/ Logger/ Model/ Observer/
-    - php vendor/bin/phpmd Block/,Controller/,Helper/,Logger/,Model/,Observer/ text cleancode,codesize,controversial,design,naming,unusedcode
-    - php vendor/bin/phpcpd Block/ Controller/ Helper/ Logger/ Model/ Observer/
+    - php vendor/bin/phpcs --standard=PSR2 Api/ Block/ Cron/ Helper/ Controller/ Model/ Observer/
+    - php vendor/bin/phpmd Api/,Block/,Cron/,Controller/,Helper/,Model/,Observer/ text cleancode,codesize,controversial,design,naming,unusedcode
+    - php vendor/bin/phpcpd Api/ Block/ Cron/ Controller/ Helper/ Model/ Observer/
 
 after_script:
     - php vendor/bin/coveralls
