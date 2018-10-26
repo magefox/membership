@@ -14,6 +14,6 @@ install:
     - composer install --prefer-dist
 
 script:
-    - php vendor/bin/phpcs --standard=PSR2 Api/ Block/ Cron/ Helper/ Model/ Observer/
+    - php vendor/bin/phpcs  --runtime-set ignore_warnings_on_exit true --standard=PSR2 Api/ Block/ Cron/ Helper/ Model/ Observer/
     - php vendor/bin/phpmd Api/,Block/,Cron/,Helper/,Model/,Observer/ text cleancode,codesize,controversial,design,naming,unusedcode
     - php vendor/bin/phpcpd Api/ Block/ Cron/ Helper/ Model/ Observer/
