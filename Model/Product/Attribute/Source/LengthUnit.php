@@ -5,6 +5,7 @@
  * @copyright (C) 2018 - Magefox.Com
  * @license MIT
  *******************************************************/
+
 namespace Magefox\Membership\Model\Product\Attribute\Source;
 
 use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
@@ -14,7 +15,7 @@ use Magento\Framework\Data\OptionSourceInterface;
 /**
  * Product status functionality model
  */
-class VipLengthUnit extends AbstractSource implements SourceInterface, OptionSourceInterface
+class LengthUnit extends AbstractSource implements SourceInterface, OptionSourceInterface
 {
     const UNIT_DAYS = 'D';
     const UNIT_WEEKS = 'W';

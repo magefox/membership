@@ -5,74 +5,92 @@
  * @copyright (C) 2018 - Magefox.Com
  * @license MIT
  *******************************************************/
+
 namespace Magefox\Membership\Block\Account\Dashboard;
 
-use Magefox\Membership\Api\CustomerManagementInterface;
-
-class Status  extends \Magento\Framework\View\Element\Template
+class Status extends \Magento\Framework\View\Element\Template
 {
-    /** @var \Magento\Customer\Helper\Session\CurrentCustomer  */
-    protected $currentCustomer;
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $_customerSession;
 
-    /** @var \Magento\Framework\Filesystem  */
-    protected $filesystem;
+    /**
+     * @var \Magefox\Membership\Api\CustomerManagementInterface
+     */
+    protected $_customerManagement;
 
-    /** @var \Magento\Store\Model\StoreManagerInterface  */
-    protected $storeManager;
-
-    protected $customerFactory;
-
-    protected $vipCustomerManagement;
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     */
+    protected $_localeDate;
 
     /**
      * Avatar constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
-     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magefox\Membership\Api\CustomerManagementInterface $customerManagement
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
-        CustomerManagementInterface $vipCustomerManagement,
+        \Magento\Customer\Model\Session $customerSession,
+        \Magefox\Membership\Api\CustomerManagementInterface $customerManagement,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         array $data = []
     ) {
-        $this->currentCustomer = $currentCustomer;
-        $this->filesystem = $context->getFilesystem();
-        $this->storeManager = $context->getStoreManager();
-        $this->customerFactory = $customerFactory;
-        $this->vipCustomerManagement = $vipCustomerManagement;
+        $this->_customerSession = $customerSession;
+        $this->_customerManagement = $customerManagement;
+        $this->_localeDate = $localeDate;
 
         parent::__construct($context, $data);
     }
 
     /**
-     * Get the logged in customer
+     * Get logged in customer
      *
-     * @return \Magento\Customer\Api\Data\CustomerInterface|null
+     * @return \Magento\Customer\Model\Customer
      */
     public function getCustomer()
     {
-        try {
-            return $this->currentCustomer->getCustomer();
-        } catch (NoSuchEntityException $e) {
-            return null;
-        }
+        return $this->_customerSession->getCustomer();
     }
 
+    /**
+     * Get expire time
+     *
+     * @return string
+     */
+    public function getExpiry()
+    {
+        $expiry = $this->_customerManagement->getExpiry($this->getCustomer());
+        return $this->_localeDate->date($expiry)->format('M d, Y H:i:s');
+    }
+
+    /**
+     * Get days to membership expire.
+     *
+     * @return int
+     */
     public function getDaysLeft()
     {
-        return $this->vipCustomerManagement->getDaysLeft($this->getCustomer());
+        return $this->_customerManagement->getDaysLeft($this->getCustomer());
     }
 
+    /**
+     * Produce and return block's html output
+     *
+     * This method should not be overridden. You can override _toHtml() method in descendants if needed.
+     *
+     * @return string
+     */
     public function toHtml()
     {
-        if (!$this->vipCustomerManagement->isVip($this->getCustomer())) {
+        if (!$this->_customerManagement->isMembership($this->getCustomer())) {
             return '';
         }
 
         return parent::toHtml();
     }
-
 }

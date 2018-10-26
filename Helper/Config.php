@@ -5,15 +5,16 @@
  * @copyright (C) 2018 - Magefox.Com
  * @license MIT
  *******************************************************/
+
 namespace Magefox\Membership\Helper;
 
 use \Magento\Store\Model\ScopeInterface;
 
 class Config extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const XML_PATH_IS_ENABLED = 'vip_membership/general/enabled';
-    const XML_PATH_VIP_CUSTOMER_GROUP = 'vip_membership/general/vip_group';
-    const XML_PATH_ORDER_STATUS = 'vip_membership/general/vip_order_status';
+    const XML_PATH_IS_ENABLED = 'membership/general/enabled';
+    const XML_PATH_REVOKE_GROUP = 'membership/general/revoke_group';
+    const XML_PATH_ORDER_STATUS = 'membership/general/order_status';
 
     /**
      * Retrieve configuration setting if the module is enabled or not.
@@ -29,9 +30,9 @@ class Config extends \Magento\Framework\App\Helper\AbstractHelper
      * Retrieve the Customer Group defined for VIP members usage.
      * @return integer
      */
-    public function getVipCustomerGroup()
+    public function getRevokeGroup()
     {
-        return $this->scopeConfig->getValue(self::XML_PATH_VIP_CUSTOMER_GROUP, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(self::XML_PATH_REVOKE_GROUP, ScopeInterface::SCOPE_STORE);
     }
 
     /**

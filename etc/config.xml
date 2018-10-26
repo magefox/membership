@@ -9,11 +9,12 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <vip_membership>
+        <membership>
             <general>
-                <enabled>0</enabled>
-                <vip_order_status>processing</vip_order_status>
+                <enabled>1</enabled>
+                <revoke_group>1</revoke_group>
+                <order_status>complete</order_status>
             </general>
-        </vip_membership>
+        </membership>
     </default>
 </config>

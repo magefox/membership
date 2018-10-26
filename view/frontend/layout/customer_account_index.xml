@@ -11,7 +11,7 @@
     <update handle="customer_account"/>
     <body>
         <referenceContainer name="content">
-            <block class="Magefox\Membership\Block\Account\Dashboard\VipStatus" name="customer_account_dashboard_vip_status" template="Magefox_Membership::account/dashboard/vip_status.phtml" after="-" />
+            <block class="Magefox\Membership\Block\Account\Dashboard\Status" name="customer_account_dashboard_membership_status" template="Magefox_Membership::account/dashboard/status.phtml" after="-" />
         </referenceContainer>
     </body>
 </page>

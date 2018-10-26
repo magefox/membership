@@ -8,7 +8,7 @@
  *******************************************************/
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="checkout_onepage_controller_success_action">
-        <observer name="Magefox_vip_check" instance="Magefox\Membership\Observer\CheckOrderForMembership" />
+    <event name="sales_order_save_after">
+        <observer name="magefox_membership_check_order_for_membership" instance="Magefox\Membership\Observer\CheckOrderForMembership" />
     </event>
 </config>
