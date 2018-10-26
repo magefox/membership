@@ -5,51 +5,48 @@
  * @copyright (C) 2018 - Magefox.Com
  * @license MIT
  *******************************************************/
+
 namespace Magefox\Membership\Setup;
 
-use Magento\Framework\Setup\ModuleContextInterface;
-use Magento\Framework\Setup\SchemaSetupInterface;
-use Magento\Framework\Setup\UninstallInterface;
-use Magento\Eav\Setup\EavSetupFactory;
-use Magento\Catalog\Model\Product;
-use Magento\Customer\Model\Customer;
-
-class Uninstall implements UninstallInterface
+class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
     /**
      * EAV setup factory
      *
-     * @var EavSetupFactory
+     * @var \Magento\Eav\Setup\EavSetupFactory
      */
     private $eavSetupFactory;
 
     /**
      * Init
      *
-     * @param EavSetupFactory $eavSetupFactory
+     * @param \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
      */
-    public function __construct(EavSetupFactory $eavSetupFactory)
-    {
+    public function __construct(
+        \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
+    ) {
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
     /**
      * @inheritDoc
      */
-    public function uninstall(SchemaSetupInterface $setup, ModuleContextInterface $context)
-    {
+    public function uninstall(
+        \Magento\Framework\Setup\SchemaSetupInterface $setup,
+        \Magento\Framework\Setup\ModuleContextInterface $context
+    ) {
         $setup->startSetup();
 
         /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
         $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
         // Remove product attributes
-        $eavSetup->removeAttribute(Product::ENTITY, 'vip_length');
-        $eavSetup->removeAttribute(Product::ENTITY, 'vip_length_unit');
+        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'membership_length');
+        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'membership_length_unit');
 
         // Remove customer attributes
-        $eavSetup->removeAttribute(Customer::ENTITY, 'vip_expiry');
-        $eavSetup->removeAttribute(Customer::ENTITY, 'vip_order_id');
+        $eavSetup->removeAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_expiry');
+        $eavSetup->removeAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_order_id');
 
         $setup->endSetup();
     }

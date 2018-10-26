@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/magefox/membership.svg?style=flat)](https://travis-ci.org/magefox/membership)
 [![Latest Stable Version](https://poser.pugx.org/magefox/membership/v/stable)](https://packagist.org/packages/magefox/membership)
 [![Total Downloads](https://poser.pugx.org/magefox/membership/downloads)](https://packagist.org/packages/magefox/membership)
-[![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/gpl-2.0.php)
+[![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://opensource.org/licenses/MIT)
 ## Description
 
 Membership functionality for Magento 2.
@@ -12,6 +12,7 @@ Membership functionality for Magento 2.
 ## Features
 - 100% open source.
 - Easily switch On/Off the Membership functionality.
+- Daily check membership status
 - Supports Magento Multi-stores.
 
 ## Installation

@@ -5,50 +5,58 @@
  * @copyright (C) 2018 - Magefox.Com
  * @license MIT
  *******************************************************/
-namespace Magefox\Membership\Api;
 
-use Magento\Customer\Api\Data\CustomerInterface;
+namespace Magefox\Membership\Api;
 
 interface CustomerManagementInterface {
 
     /**
-     * Make a given customer a VIP from a given order.
+     * Make a given customer a Membership from a given order.
      * 
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
+     * @param \Magento\Customer\Model\Customer $customer
      * @param \Magento\Sales\Api\Data\OrderInterface $order
-     * @return \Magento\Customer\Api\Data\CustomerInterface
+     * @return \Magento\Customer\Model\Customer
      */
-    public function becomeVipMember(\Magento\Customer\Api\Data\CustomerInterface $customer, \Magento\Sales\Api\Data\OrderInterface $order);
+    public function invokeMembership(\Magento\Customer\Model\Customer $customer, \Magento\Sales\Api\Data\OrderInterface $order);
 
     /**
-     * Remove a given customers VIP Membership.
+     * Remove a given customers Membership.
      * 
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
-     * @return \Magento\Customer\Api\Data\CustomerInterface
+     * @param \Magento\Customer\Model\Customer $customer
+     * @return \Magento\Customer\Model\Customer
      */
-    public function revokeMembership(\Magento\Customer\Api\Data\CustomerInterface $customer);
+    public function revokeMembership(\Magento\Customer\Model\Customer $customer);
 
     /**
-     * @return \Magento\Customer\Api\Data\CustomerSearchResultsInterface
-     */
-    public function getAllVipCustomers();
-
-    /**
-     * Retrieve the VIP Group ID defined in config
+     * Retrieve the Membership Group ID defined in product
+     *
+     * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @return integer
      */
-    public function getGroupId();
+    public function getGroupId(\Magento\Sales\Api\Data\OrderInterface $order);
 
     /**
-     * @param CustomerInterface $customer
+     * Check customer is membership.
+     *
+     * @param \Magento\Customer\Model\Customer $customer
      * @return boolean
      */
-    public function isVip(CustomerInterface $customer);
+    public function isMembership(\Magento\Customer\Model\Customer $customer);
 
     /**
-     * @param CustomerInterface $customer
+     * Get expire time
+     *
+     * @param \Magento\Customer\Model\Customer $customer
+     * @return string
+     */
+    public function getExpiry(\Magento\Customer\Model\Customer $customer);
+
+    /**
+     * Get days to membership expire.
+     *
+     * @param \Magento\Customer\Model\Customer $customer
      * @return integer
      */
-    public function getDaysLeft(CustomerInterface $customer);
+    public function getDaysLeft(\Magento\Customer\Model\Customer $customer);
 
 }
