@@ -24,8 +24,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         Config $configHelper
-    )
-    {
+    ) {
         $this->_productRepository = $productRepository;
         $this->_configHelper = $configHelper;
 

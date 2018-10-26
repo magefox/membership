@@ -41,8 +41,7 @@ class CheckOrderForMembership implements \Magento\Framework\Event\ObserverInterf
         \Magefox\Membership\Helper\Config $configHelper,
         \Magefox\Membership\Helper\Order $orderHelper,
         \Magefox\Membership\Model\CustomerManagement $customerManagement
-    )
-    {
+    ) {
         $this->_orderRepository = $orderRepository;
         $this->_customerFactory = $customerFactory;
         $this->_configHelper = $configHelper;
@@ -69,7 +68,7 @@ class CheckOrderForMembership implements \Magento\Framework\Event\ObserverInterf
         if ($this->_orderHelper->hasMembershipItemPurchased($order)) {
             if ($this->_orderHelper->canInvokeMembership($order)) {
                 $this->_customerManagement->invokeMembership($customer, $order);
-            } else if($order->getStatus() === 'closed') {
+            } elseif ($order->getStatus() === 'closed') {
                 $this->_customerManagement->revokeMembership($customer);
             }
         }

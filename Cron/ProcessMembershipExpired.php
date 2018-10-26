@@ -53,8 +53,7 @@ class ProcessMembershipExpired
         \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory $customerCollectionFactory,
         \Magefox\Membership\Helper\Config $configHelper,
         \Magefox\Membership\Api\CustomerManagementInterface $customerManagement
-    )
-    {
+    ) {
         $this->_eventManager = $eventManager;
         $this->_dateTime = $dateTime;
         $this->_customerCollectionFactory = $customerCollectionFactory;

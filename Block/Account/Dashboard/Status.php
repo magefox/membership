@@ -8,7 +8,7 @@
 
 namespace Magefox\Membership\Block\Account\Dashboard;
 
-class Status  extends \Magento\Framework\View\Element\Template
+class Status extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var \Magento\Customer\Model\Session

@@ -40,13 +40,22 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magefox\Membership\Helper\Config $configHelper
-    )
-    {
+    ) {
         $this->_customerSession = $customerSession;
         $this->_checkoutSession = $checkoutSession;
         $this->_configHelper = $configHelper;
 
-        parent::__construct($catalogProductOption, $eavConfig, $catalogProductType, $eventManager, $fileStorageDb, $filesystem, $coreRegistry, $logger, $productRepository);
+        parent::__construct(
+            $catalogProductOption,
+            $eavConfig,
+            $catalogProductType,
+            $eventManager,
+            $fileStorageDb,
+            $filesystem,
+            $coreRegistry,
+            $logger,
+            $productRepository
+        );
     }
 
     /**

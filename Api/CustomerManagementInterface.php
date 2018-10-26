@@ -8,20 +8,24 @@
 
 namespace Magefox\Membership\Api;
 
-interface CustomerManagementInterface {
+interface CustomerManagementInterface
+{
 
     /**
      * Make a given customer a Membership from a given order.
-     * 
+     *
      * @param \Magento\Customer\Model\Customer $customer
      * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @return \Magento\Customer\Model\Customer
      */
-    public function invokeMembership(\Magento\Customer\Model\Customer $customer, \Magento\Sales\Api\Data\OrderInterface $order);
+    public function invokeMembership(
+        \Magento\Customer\Model\Customer $customer,
+        \Magento\Sales\Api\Data\OrderInterface $order
+    );
 
     /**
      * Remove a given customers Membership.
-     * 
+     *
      * @param \Magento\Customer\Model\Customer $customer
      * @return \Magento\Customer\Model\Customer
      */
@@ -58,5 +62,4 @@ interface CustomerManagementInterface {
      * @return integer
      */
     public function getDaysLeft(\Magento\Customer\Model\Customer $customer);
-
 }

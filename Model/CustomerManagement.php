@@ -59,8 +59,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
         \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
         \Magefox\Membership\Helper\Config $configHelper,
         \Magefox\Membership\Helper\Order $orderHelper
-    )
-    {
+    ) {
         $this->_customerRepository = $customerRepository;
         $this->_searchCriteria = $searchCriteria;
         $this->_filterGroup = $filterGroup;
@@ -80,9 +79,12 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
      */
     public function calculateExpiryDate(
         \Magento\Sales\Api\Data\OrderInterface $order
-    )
-    {
-        $now = new \DateTime($this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT), new \DateTimeZone('UTC'));
+    ) {
+        $now = new \DateTime(
+            $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
+            new \DateTimeZone('UTC')
+        );
+
         return $now->add($this->_orderHelper->getPurchasedMembershipLength($order));
     }
 
@@ -94,8 +96,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
      */
     public function getGroupId(
         \Magento\Sales\Api\Data\OrderInterface $order
-    )
-    {
+    ) {
         return $this->_orderHelper->getPurchasedMembershipGroupId($order);
     }
 
@@ -110,8 +111,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     public function invokeMembership(
         \Magento\Customer\Model\Customer $customer,
         \Magento\Sales\Api\Data\OrderInterface $order
-    )
-    {
+    ) {
         if (!$this->_orderHelper->canInvokeMembership($order)) {
             return $customer;
         }
@@ -139,8 +139,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
      */
     public function revokeMembership(
         \Magento\Customer\Model\Customer $customer
-    )
-    {
+    ) {
         $expiry = $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
 
         $customerData = $customer->getDataModel();
@@ -184,7 +183,10 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     public function getDaysLeft(\Magento\Customer\Model\Customer $customer)
     {
         $expiry = new \DateTime($this->getExpiry($customer), new \DateTimeZone('UTC'));
-        $today = new \DateTime($this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT), new \DateTimeZone('UTC'));
+        $today = new \DateTime(
+            $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
+            new \DateTimeZone('UTC')
+        );
 
         return $today->diff($expiry)->days;
     }

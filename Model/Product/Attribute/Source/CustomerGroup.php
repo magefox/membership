@@ -29,8 +29,7 @@ class CustomerGroup extends AbstractSource implements SourceInterface, OptionSou
 
     public function __construct(
         \Magento\Customer\Model\Customer\Attribute\Source\GroupSourceLoggedInOnlyInterface $groupSourceLoggedInOnly
-    )
-    {
+    ) {
         $this->_groupSourceLoggedInOnly = $groupSourceLoggedInOnly;
     }
 
