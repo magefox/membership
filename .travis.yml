@@ -1,0 +1,23 @@
+language: php
+
+sudo: false
+
+php:
+    - 7.0
+    - 7.1
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+install:
+    - wget https://gist.githubusercontent.com/cdiacon/457f0e09fb936e5cc859/raw/a9d46ee07b550b9a742a3cb418c28b5d49b1753b/auth.json
+    - composer install --prefer-dist
+
+script:
+    - php vendor/bin/phpcs --standard=PSR2 Block/ Console/ Controller/ Helper/ Logger/ Model/ Observer/
+    - php vendor/bin/phpmd Block/,Console/,Controller/,Helper/,Logger/,Model/,Observer/ text cleancode,codesize,controversial,design,naming,unusedcode
+    - php vendor/bin/phpcpd Block/ Console/ Controller/ Helper/ Logger/ Model/ Observer/
+
+after_script:
+    - php vendor/bin/coveralls
