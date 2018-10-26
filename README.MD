@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/magefox/membership.svg?style=flat)](https://travis-ci.org/magefox/membership)
 [![Latest Stable Version](https://poser.pugx.org/magefox/membership/v/stable)](https://packagist.org/packages/magefox/membership)
 [![Total Downloads](https://poser.pugx.org/magefox/membership/downloads)](https://packagist.org/packages/magefox/membership)
-[![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/gpl-2.0.php)
+[![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](http://opensource.org/licenses/gpl-2.0.php) [![Join the chat at https://gitter.im/magefox/membership](https://badges.gitter.im/magefox/membership.svg)](https://gitter.im/magefox/membership?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ## Description
 
 Membership functionality for Magento 2.
