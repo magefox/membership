@@ -9,6 +9,8 @@
 Membership functionality for Magento 2.
 <!--- [Try Demo](http://demo.magefox.com) --->
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/sGdYDtqSssE/0.jpg)](http://www.youtube.com/watch?v=sGdYDtqSssE)
+
 ## Features
 - 100% open source.
 - Easily switch On/Off the Membership functionality.
