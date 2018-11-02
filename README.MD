@@ -6,7 +6,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://opensource.org/licenses/MIT)
 ## Description
 
-Membership functionality for Magento 2.
+Membership extension for Magento 2 brings comfort and convenience for the owner stores to create and manage their membership packages.
 <!--- [Try Demo](http://demo.magefox.com) --->
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/sGdYDtqSssE/0.jpg)](http://www.youtube.com/watch?v=sGdYDtqSssE)
@@ -16,6 +16,7 @@ Membership functionality for Magento 2.
 - Easily switch On/Off the Membership functionality.
 - Daily check membership status
 - Supports Magento Multi-stores.
+- Compatible with CE: 2.2
 
 ## Installation
 ### Manual (without composer)
@@ -56,7 +57,6 @@ There you will be able to fill several sections:
 - **Enable Membership**. To enable or disable the Membership functionality.
 - **Revoke Customer Group**. When membership expired, which customer group do you want them moved to.
 - **Confirmed Order Status**. When a Membership product is purchased, which order status should used to enable Membership status.
-- And another options depend your provider you selected.  
 
 ## Release Notes
 ### 1.0.0
