@@ -18,7 +18,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
     private $eavSetupFactory;
 
     /**
-     * Init
+     * Uninstall constructor.
      *
      * @param \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
      */
@@ -29,7 +29,11 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
     }
 
     /**
-     * @inheritDoc
+     * Uninstall scripts
+     *
+     * @param \Magento\Framework\Setup\SchemaSetupInterface $setup
+     * @param \Magento\Framework\Setup\ModuleContextInterface $context
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function uninstall(
         \Magento\Framework\Setup\SchemaSetupInterface $setup,
@@ -43,6 +47,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         // Remove product attributes
         $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'membership_length');
         $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'membership_length_unit');
+        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'membership_group_to_assign');
 
         // Remove customer attributes
         $eavSetup->removeAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_expiry');
@@ -50,5 +55,4 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 
         $setup->endSetup();
     }
-
 }

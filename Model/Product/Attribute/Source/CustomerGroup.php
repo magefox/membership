@@ -20,17 +20,17 @@ class CustomerGroup extends AbstractSource implements SourceInterface, OptionSou
     /**
      * @var array
      */
-    protected $_options;
+    protected $options;
 
     /**
      * @var \Magento\Customer\Model\Customer\Attribute\Source\GroupSourceLoggedInOnlyInterface
      */
-    protected $_groupSourceLoggedInOnly;
+    protected $groupSourceLoggedInOnly;
 
     public function __construct(
         \Magento\Customer\Model\Customer\Attribute\Source\GroupSourceLoggedInOnlyInterface $groupSourceLoggedInOnly
     ) {
-        $this->_groupSourceLoggedInOnly = $groupSourceLoggedInOnly;
+        $this->groupSourceLoggedInOnly = $groupSourceLoggedInOnly;
     }
 
     /**
@@ -40,11 +40,11 @@ class CustomerGroup extends AbstractSource implements SourceInterface, OptionSou
      */
     public function getAllOptions()
     {
-        if (!$this->_options) {
-            $this->_options = $this->_groupSourceLoggedInOnly->toOptionArray();
-            array_unshift($this->_options, ['value' => '', 'label' => __('-- Please Select --')]);
+        if (!$this->options) {
+            $this->options = $this->groupSourceLoggedInOnly->toOptionArray();
+            array_unshift($this->options, ['value' => '', 'label' => __('-- Please Select --')]);
         }
 
-        return $this->_options;
+        return $this->options;
     }
 }

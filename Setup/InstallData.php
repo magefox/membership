@@ -24,16 +24,21 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
      */
     public function __construct(
         \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
-    )
-    {
+    ) {
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
+    /**
+     * Install scripts
+     *
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     * @param \Magento\Framework\Setup\ModuleContextInterface $context
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function install(
         \Magento\Framework\Setup\ModuleDataSetupInterface $setup,
         \Magento\Framework\Setup\ModuleContextInterface $context
-    )
-    {
+    ) {
         /**
          * @var \Magento\Eav\Setup\EavSetup $eavSetup
          */
@@ -63,7 +68,9 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
      */
     public function addProductAttributes(\Magento\Eav\Setup\EavSetup $eavSetup)
     {
-        $attributeSetId = $eavSetup->getDefaultAttributeSetId(\Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE);
+        $attributeSetId = $eavSetup->getDefaultAttributeSetId(
+            \Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE
+        );
         $eavSetup->addAttributeGroup(
             \Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE,
             $attributeSetId,
@@ -138,6 +145,12 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         );
     }
 
+    /**
+     * Add customer membership attributes
+     *
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     * @param \Magento\Eav\Setup\EavSetup $eavSetup
+     */
     public function addCustomerAttributes(
         \Magento\Framework\Setup\ModuleDataSetupInterface $setup,
         \Magento\Eav\Setup\EavSetup $eavSetup
@@ -154,6 +167,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
             'input_filter' => 'date',
             'validate_rules' => '{"input_validation":"date"}',
             'position' => 200,
+            'note' => 'Expire time in GMT (UTC).'
         ]);
 
         $eavSetup->addAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_order_id', [
@@ -170,11 +184,19 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         $data = [
             [
                 'form_code' => 'adminhtml_customer',
-                'attribute_id' => $eavSetup->getAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_expiry', 'attribute_id')
+                'attribute_id' => $eavSetup->getAttribute(
+                    \Magento\Customer\Model\Customer::ENTITY,
+                    'membership_expiry',
+                    'attribute_id'
+                )
             ],
             [
                 'form_code' => 'adminhtml_customer',
-                'attribute_id' => $eavSetup->getAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_order_id', 'attribute_id')
+                'attribute_id' => $eavSetup->getAttribute(
+                    \Magento\Customer\Model\Customer::ENTITY,
+                    'membership_order_id',
+                    'attribute_id'
+                )
             ],
         ];
 

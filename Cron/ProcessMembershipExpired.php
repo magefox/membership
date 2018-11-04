@@ -16,27 +16,27 @@ class ProcessMembershipExpired
     /**
      * @var \Magento\Framework\Event\Manager
      */
-    protected $_eventManager;
+    protected $eventManager;
 
     /**
      * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
-    protected $_dateTime;
+    protected $dateTime;
 
     /**
      * @var \Magento\Customer\Model\ResourceModel\Customer\CollectionFactory
      */
-    protected $_customerCollectionFactory;
+    protected $customerCollectionFactory;
 
     /**
      * @var \Magefox\Membership\Helper\Config
      */
-    protected $_configHelper;
+    protected $configHelper;
 
     /**
      * @var \Magefox\Membership\Api\CustomerManagementInterface
      */
-    protected $_customerManagement;
+    protected $customerManagement;
 
     /**
      * ProcessMembershipExpired constructor.
@@ -54,11 +54,11 @@ class ProcessMembershipExpired
         \Magefox\Membership\Helper\Config $configHelper,
         \Magefox\Membership\Api\CustomerManagementInterface $customerManagement
     ) {
-        $this->_eventManager = $eventManager;
-        $this->_dateTime = $dateTime;
-        $this->_customerCollectionFactory = $customerCollectionFactory;
-        $this->_configHelper = $configHelper;
-        $this->_customerManagement = $customerManagement;
+        $this->eventManager = $eventManager;
+        $this->dateTime = $dateTime;
+        $this->customerCollectionFactory = $customerCollectionFactory;
+        $this->configHelper = $configHelper;
+        $this->customerManagement = $customerManagement;
     }
 
     /**
@@ -69,27 +69,27 @@ class ProcessMembershipExpired
     public function execute()
     {
         // Check that the module functionality is enabled.
-        if (!$this->_configHelper->isEnabled()) {
+        if (!$this->configHelper->isEnabled()) {
             return;
         }
 
         /** @var \Magento\Customer\Model\ResourceModel\Customer\Collection $customerCollection */
-        $customers = $this->_customerCollectionFactory->create();
+        $customers = $this->customerCollectionFactory->create();
         $customers
             ->addFieldToFilter('group_id', [
-                'neq' => $this->_configHelper->getRevokeGroup()
+                'neq' => $this->configHelper->getRevokeGroup()
             ])
             ->addAttributeToFilter('membership_expiry', [
-                'lteq' => $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT)
+                'lteq' => $this->dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT)
             ]);
 
         /** @var Customer $customer */
         foreach ($customers as $customer) {
-            $this->_customerManagement->revokeMembership($customer);
+            $this->customerManagement->revokeMembership($customer);
         }
 
         // Could be used for dispatching emails to inform the customer of their expired membership.
-        $this->_eventManager->dispatch(
+        $this->eventManager->dispatch(
             'membership_expired_customers',
             [
                 'customers' => $customers

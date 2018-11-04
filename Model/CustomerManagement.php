@@ -13,42 +13,42 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     /**
      * @var \Magento\Customer\Api\CustomerRepositoryInterface
      */
-    protected $_customerRepository;
+    protected $customerRepository;
 
     /**
      * @var \Magento\Framework\Api\SearchCriteriaInterface
      */
-    protected $_searchCriteria;
+    protected $searchCriteria;
 
     /**
      * @var \Magento\Framework\Api\Search\FilterGroup
      */
-    protected $_filterGroup;
+    protected $filterGroup;
 
     /**
      * @var \Magento\Framework\Api\Filter
      */
-    protected $_filter;
+    protected $filter;
 
     /**
      * @var \Magento\Customer\Api\GroupManagementInterface
      */
-    protected $_groupManagement;
+    protected $groupManagement;
 
     /**
      * @var \Magento\Framework\Stdlib\DateTime\DateTime
      */
-    protected $_dateTime;
+    protected $dateTime;
 
     /**
      * @var \Magefox\Membership\Helper\Config
      */
-    protected $_configHelper;
+    protected $configHelper;
 
     /**
      * @var \Magefox\Membership\Helper\Order
      */
-    protected $_orderHelper;
+    protected $orderHelper;
 
     public function __construct(
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
@@ -60,14 +60,14 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
         \Magefox\Membership\Helper\Config $configHelper,
         \Magefox\Membership\Helper\Order $orderHelper
     ) {
-        $this->_customerRepository = $customerRepository;
-        $this->_searchCriteria = $searchCriteria;
-        $this->_filterGroup = $filterGroup;
-        $this->_filter = $filter;
-        $this->_groupManagement = $groupManagement;
-        $this->_dateTime = $dateTime;
-        $this->_configHelper = $configHelper;
-        $this->_orderHelper = $orderHelper;
+        $this->customerRepository = $customerRepository;
+        $this->searchCriteria = $searchCriteria;
+        $this->filterGroup = $filterGroup;
+        $this->filter = $filter;
+        $this->groupManagement = $groupManagement;
+        $this->dateTime = $dateTime;
+        $this->configHelper = $configHelper;
+        $this->orderHelper = $orderHelper;
     }
 
     /**
@@ -81,11 +81,11 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
         \Magento\Sales\Api\Data\OrderInterface $order
     ) {
         $now = new \DateTime(
-            $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
+            $this->dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
             new \DateTimeZone('UTC')
         );
 
-        return $now->add($this->_orderHelper->getPurchasedMembershipLength($order));
+        return $now->add($this->orderHelper->getPurchasedMembershipLength($order));
     }
 
     /**
@@ -97,7 +97,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     public function getGroupId(
         \Magento\Sales\Api\Data\OrderInterface $order
     ) {
-        return $this->_orderHelper->getPurchasedMembershipGroupId($order);
+        return $this->orderHelper->getPurchasedMembershipGroupId($order);
     }
 
     /**
@@ -112,7 +112,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
         \Magento\Customer\Model\Customer $customer,
         \Magento\Sales\Api\Data\OrderInterface $order
     ) {
-        if (!$this->_orderHelper->canInvokeMembership($order)) {
+        if (!$this->orderHelper->canInvokeMembership($order)) {
             return $customer;
         }
 
@@ -140,11 +140,11 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     public function revokeMembership(
         \Magento\Customer\Model\Customer $customer
     ) {
-        $expiry = $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
+        $expiry = $this->dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
 
         $customerData = $customer->getDataModel();
         $customerData->setCustomAttribute('membership_expiry', $expiry)
-            ->setGroupId($this->_configHelper->getRevokeGroup());
+            ->setGroupId($this->configHelper->getRevokeGroup());
 
         $customer->updateData($customerData)
             ->save();
@@ -184,7 +184,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     {
         $expiry = new \DateTime($this->getExpiry($customer), new \DateTimeZone('UTC'));
         $today = new \DateTime(
-            $this->_dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
+            $this->dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT),
             new \DateTimeZone('UTC')
         );
 

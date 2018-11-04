@@ -13,20 +13,20 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var Config
      */
-    protected $_configHelper;
+    protected $configHelper;
 
     /**
      * @var \Magento\Catalog\Api\ProductRepositoryInterface
      */
-    protected $_productRepository;
+    protected $productRepository;
 
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         Config $configHelper
     ) {
-        $this->_productRepository = $productRepository;
-        $this->_configHelper = $configHelper;
+        $this->productRepository = $productRepository;
+        $this->configHelper = $configHelper;
 
         parent::__construct($context);
     }
@@ -37,7 +37,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
      * @param \Magento\Sales\Api\Data\OrderInterface $order
      * @return array
      */
-    protected function _getMembershipItem(
+    protected function getMembershipItem(
         \Magento\Sales\Api\Data\OrderInterface $order
     ) {
         return array_filter(
@@ -59,7 +59,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function hasMembershipItemPurchased(\Magento\Sales\Api\Data\OrderInterface $order)
     {
-        return !empty($this->_getMembershipItem($order));
+        return !empty($this->getMembershipItem($order));
     }
 
     /**
@@ -70,7 +70,7 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function canInvokeMembership(\Magento\Sales\Api\Data\OrderInterface $order)
     {
-        return $order->getStatus() === $this->_configHelper->getOrderStatus();
+        return $order->getStatus() === $this->configHelper->getOrderStatus();
     }
 
     /**
@@ -86,14 +86,14 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * @var \Magento\Sales\Api\Data\OrderItemInterface $item
          */
-        $items = $this->_getMembershipItem($order);
+        $items = $this->getMembershipItem($order);
         $item = array_pop($items);
 
         /**
          * @var \Magento\Catalog\Api\Data\ProductInterface $product
          */
         try {
-            $product = $this->_productRepository
+            $product = $this->productRepository
                 ->getById($item->getProductId());
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             return new \DateInterval('P0D');
@@ -120,19 +120,19 @@ class Order extends \Magento\Framework\App\Helper\AbstractHelper
         /**
          * @var \Magento\Sales\Api\Data\OrderItemInterface $item
          */
-        $items = $this->_getMembershipItem($order);
+        $items = $this->getMembershipItem($order);
         $item = array_pop($items);
 
         /**
          * @var \Magento\Catalog\Api\Data\ProductInterface $product
          */
         try {
-            $product = $this->_productRepository
+            $product = $this->productRepository
                 ->getById($item->getProductId());
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            return $this->_configHelper->getRevokeGroup();
+            return $this->configHelper->getRevokeGroup();
         }
 
-        return $product->getData('membership_group_to_assign') ?? $this->_configHelper->getRevokeGroup();
+        return $product->getData('membership_group_to_assign') ?? $this->configHelper->getRevokeGroup();
     }
 }

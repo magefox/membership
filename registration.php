@@ -5,6 +5,7 @@
  * @copyright (C) 2018 - Magefox.Com
  * @license MIT
  *******************************************************/
+
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
     'Magefox_Membership',
