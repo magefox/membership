@@ -13,27 +13,27 @@ class CheckOrderForMembership implements \Magento\Framework\Event\ObserverInterf
     /**
      * @var \Magento\Customer\Model\CustomerFactory
      */
-    protected $_customerFactory;
+    protected $customerFactory;
 
     /**
      * @var \Magento\Sales\Api\OrderRepositoryInterface
      */
-    protected $_orderRepository;
+    protected $orderRepository;
 
     /**
      * @var \Magefox\Membership\Helper\Config
      */
-    protected $_configHelper;
+    protected $configHelper;
 
     /**
      * @var \Magefox\Membership\Helper\Order
      */
-    protected $_orderHelper;
+    protected $orderHelper;
 
     /**
      * @var \Magefox\Membership\Model\CustomerManagement
      */
-    protected $_customerManagement;
+    protected $customerManagement;
 
     public function __construct(
         \Magento\Customer\Model\CustomerFactory $customerFactory,
@@ -42,11 +42,11 @@ class CheckOrderForMembership implements \Magento\Framework\Event\ObserverInterf
         \Magefox\Membership\Helper\Order $orderHelper,
         \Magefox\Membership\Model\CustomerManagement $customerManagement
     ) {
-        $this->_orderRepository = $orderRepository;
-        $this->_customerFactory = $customerFactory;
-        $this->_configHelper = $configHelper;
-        $this->_orderHelper = $orderHelper;
-        $this->_customerManagement = $customerManagement;
+        $this->orderRepository = $orderRepository;
+        $this->customerFactory = $customerFactory;
+        $this->configHelper = $configHelper;
+        $this->orderHelper = $orderHelper;
+        $this->customerManagement = $customerManagement;
     }
 
     /**
@@ -61,15 +61,15 @@ class CheckOrderForMembership implements \Magento\Framework\Event\ObserverInterf
          * @var \Magento\Sales\Api\Data\OrderInterface $order
          */
         $order = $observer->getEvent()->getOrder();
-        $customer = $this->_customerFactory
+        $customer = $this->customerFactory
             ->create()
             ->load($order->getCustomerId());
 
-        if ($this->_orderHelper->hasMembershipItemPurchased($order)) {
-            if ($this->_orderHelper->canInvokeMembership($order)) {
-                $this->_customerManagement->invokeMembership($customer, $order);
+        if ($this->orderHelper->hasMembershipItemPurchased($order)) {
+            if ($this->orderHelper->canInvokeMembership($order)) {
+                $this->customerManagement->invokeMembership($customer, $order);
             } elseif ($order->getStatus() === 'closed') {
-                $this->_customerManagement->revokeMembership($customer);
+                $this->customerManagement->revokeMembership($customer);
             }
         }
     }

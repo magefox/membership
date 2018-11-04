@@ -138,6 +138,12 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         );
     }
 
+    /**
+     * Add customer membership attributes
+     *
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     * @param \Magento\Eav\Setup\EavSetup $eavSetup
+     */
     public function addCustomerAttributes(
         \Magento\Framework\Setup\ModuleDataSetupInterface $setup,
         \Magento\Eav\Setup\EavSetup $eavSetup
@@ -154,6 +160,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
             'input_filter' => 'date',
             'validate_rules' => '{"input_validation":"date"}',
             'position' => 200,
+            'note' => 'Expire time in GMT (UTC).'
         ]);
 
         $eavSetup->addAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_order_id', [

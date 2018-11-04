@@ -13,17 +13,17 @@ class Status extends \Magento\Framework\View\Element\Template
     /**
      * @var \Magento\Customer\Model\Session
      */
-    protected $_customerSession;
+    protected $customerSession;
 
     /**
      * @var \Magefox\Membership\Api\CustomerManagementInterface
      */
-    protected $_customerManagement;
+    protected $customerManagement;
 
     /**
      * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
      */
-    protected $_localeDate;
+    protected $localeDate;
 
     /**
      * Avatar constructor.
@@ -40,9 +40,9 @@ class Status extends \Magento\Framework\View\Element\Template
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         array $data = []
     ) {
-        $this->_customerSession = $customerSession;
-        $this->_customerManagement = $customerManagement;
-        $this->_localeDate = $localeDate;
+        $this->customerSession = $customerSession;
+        $this->customerManagement = $customerManagement;
+        $this->localeDate = $localeDate;
 
         parent::__construct($context, $data);
     }
@@ -54,7 +54,7 @@ class Status extends \Magento\Framework\View\Element\Template
      */
     public function getCustomer()
     {
-        return $this->_customerSession->getCustomer();
+        return $this->customerSession->getCustomer();
     }
 
     /**
@@ -64,8 +64,8 @@ class Status extends \Magento\Framework\View\Element\Template
      */
     public function getExpiry()
     {
-        $expiry = $this->_customerManagement->getExpiry($this->getCustomer());
-        return $this->_localeDate->date($expiry)->format('M d, Y H:i:s');
+        $expiry = $this->customerManagement->getExpiry($this->getCustomer());
+        return $this->localeDate->date($expiry)->format('M d, Y H:i:s');
     }
 
     /**
@@ -75,7 +75,7 @@ class Status extends \Magento\Framework\View\Element\Template
      */
     public function getDaysLeft()
     {
-        return $this->_customerManagement->getDaysLeft($this->getCustomer());
+        return $this->customerManagement->getDaysLeft($this->getCustomer());
     }
 
     /**
@@ -87,7 +87,7 @@ class Status extends \Magento\Framework\View\Element\Template
      */
     public function toHtml()
     {
-        if (!$this->_customerManagement->isMembership($this->getCustomer())) {
+        if (!$this->customerManagement->isMembership($this->getCustomer())) {
             return '';
         }
 

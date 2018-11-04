@@ -15,18 +15,34 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
     /**
      * @var \Magento\Customer\Model\Session
      */
-    protected $_customerSession;
+    protected $customerSession;
 
     /**
      * @var \Magento\Checkout\Model\Session
      */
-    protected $_checkoutSession;
+    protected $checkoutSession;
 
     /**
      * @var \Magefox\Membership\Helper\Config
      */
-    protected $_configHelper;
+    protected $configHelper;
 
+    /**
+     * Membership constructor.
+     *
+     * @param \Magento\Catalog\Model\Product\Option $catalogProductOption
+     * @param \Magento\Eav\Model\Config $eavConfig
+     * @param \Magento\Catalog\Model\Product\Type $catalogProductType
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Magento\MediaStorage\Helper\File\Storage\Database $fileStorageDb
+     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param \Magefox\Membership\Helper\Config $configHelper
+     */
     public function __construct(
         \Magento\Catalog\Model\Product\Option $catalogProductOption,
         \Magento\Eav\Model\Config $eavConfig,
@@ -41,9 +57,9 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magefox\Membership\Helper\Config $configHelper
     ) {
-        $this->_customerSession = $customerSession;
-        $this->_checkoutSession = $checkoutSession;
-        $this->_configHelper = $configHelper;
+        $this->customerSession = $customerSession;
+        $this->checkoutSession = $checkoutSession;
+        $this->configHelper = $configHelper;
 
         parent::__construct(
             $catalogProductOption,
@@ -64,6 +80,7 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      * @param \Magento\Catalog\Model\Product $product
      * @return bool
      */
+    // @codingStandardsIgnoreLine
     public function isVirtual($product)
     {
         return true;
@@ -85,9 +102,8 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      * @param \Magento\Catalog\Model\Product $product
      * @return void
      */
-    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product)
-    {
-    }
+    // @codingStandardsIgnoreLine
+    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product) {}
 
     /**
      * Ensure the customer is logged in when attempting to purchase a Membership.
@@ -97,19 +113,20 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      * @param string $processMode
      * @return array|string
      */
+    // @codingStandardsIgnoreLine
     protected function _prepareProduct(\Magento\Framework\DataObject $buyRequest, $product, $processMode)
     {
         // Don't allow the customer to purchase if functionality is disabled.
-        if (!$this->_configHelper->isEnabled()) {
+        if (!$this->configHelper->isEnabled()) {
             return __("Membership is currently disabled.");
         }
 
         // Only logged in users can add to cart.
-        if ($this->_isStrictProcessMode($processMode) && !$this->_customerSession->isLoggedIn()) {
+        if ($this->_isStrictProcessMode($processMode) && !$this->customerSession->isLoggedIn()) {
             return __("You need to be logged in to purchase a membership.");
         }
 
-        $quote = $this->_checkoutSession->getQuote();
+        $quote = $this->checkoutSession->getQuote();
         $items = $quote->getAllItems();
         foreach ($items as $item) {
             /**

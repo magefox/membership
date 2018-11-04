@@ -59,5 +59,11 @@ There you will be able to fill several sections:
 - **Confirmed Order Status**. When a Membership product is purchased, which order status should used to enable Membership status.
 
 ## Release Notes
+### 1.0.1
+- Remove custom options in membership product type
+- Verify Magento Extension Quality Program Coding Standard
+- Add note to member expiry date
+- Fix Uninstall scripts
+
 ### 1.0.0
 * Initial version.
