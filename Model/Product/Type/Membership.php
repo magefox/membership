@@ -79,8 +79,8 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      *
      * @param \Magento\Catalog\Model\Product $product
      * @return bool
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    // @codingStandardsIgnoreLine
     public function isVirtual($product)
     {
         return true;
@@ -101,9 +101,11 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      *
      * @param \Magento\Catalog\Model\Product $product
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    // @codingStandardsIgnoreLine
-    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product) {}
+    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product)
+    {
+    }
 
     /**
      * Ensure the customer is logged in when attempting to purchase a Membership.

@@ -29,6 +29,13 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
+    /**
+     * Install scripts
+     *
+     * @param \Magento\Framework\Setup\ModuleDataSetupInterface $setup
+     * @param \Magento\Framework\Setup\ModuleContextInterface $context
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function install(
         \Magento\Framework\Setup\ModuleDataSetupInterface $setup,
         \Magento\Framework\Setup\ModuleContextInterface $context
