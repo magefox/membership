@@ -24,8 +24,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
      */
     public function __construct(
         \Magento\Eav\Setup\EavSetupFactory $eavSetupFactory
-    )
-    {
+    ) {
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
@@ -39,8 +38,7 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
     public function install(
         \Magento\Framework\Setup\ModuleDataSetupInterface $setup,
         \Magento\Framework\Setup\ModuleContextInterface $context
-    )
-    {
+    ) {
         /**
          * @var \Magento\Eav\Setup\EavSetup $eavSetup
          */
@@ -70,7 +68,9 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
      */
     public function addProductAttributes(\Magento\Eav\Setup\EavSetup $eavSetup)
     {
-        $attributeSetId = $eavSetup->getDefaultAttributeSetId(\Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE);
+        $attributeSetId = $eavSetup->getDefaultAttributeSetId(
+            \Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE
+        );
         $eavSetup->addAttributeGroup(
             \Magento\Catalog\Api\Data\ProductAttributeInterface::ENTITY_TYPE_CODE,
             $attributeSetId,
@@ -184,11 +184,19 @@ class InstallData implements \Magento\Framework\Setup\InstallDataInterface
         $data = [
             [
                 'form_code' => 'adminhtml_customer',
-                'attribute_id' => $eavSetup->getAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_expiry', 'attribute_id')
+                'attribute_id' => $eavSetup->getAttribute(
+                    \Magento\Customer\Model\Customer::ENTITY,
+                    'membership_expiry',
+                    'attribute_id'
+                )
             ],
             [
                 'form_code' => 'adminhtml_customer',
-                'attribute_id' => $eavSetup->getAttribute(\Magento\Customer\Model\Customer::ENTITY, 'membership_order_id', 'attribute_id')
+                'attribute_id' => $eavSetup->getAttribute(
+                    \Magento\Customer\Model\Customer::ENTITY,
+                    'membership_order_id',
+                    'attribute_id'
+                )
             ],
         ];
 

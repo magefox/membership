@@ -11,6 +11,7 @@ namespace Magefox\Membership\Ui\DataProvider\Catalog\Product\Form\Modifier;
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Framework\Stdlib\ArrayManager;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\CustomOptions as CustomOptionsModifier;
+use Magefox\Membership\Model\Product\Type\Membership;
 
 class CustomOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier
 {
@@ -48,7 +49,7 @@ class CustomOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modifi
     {
         $product = $this->locator->getProduct();
 
-        if ($product->getTypeId() === \Magefox\Membership\Model\Product\Type\Membership::TYPE_CODE) {
+        if ($product->getTypeId() === Membership::TYPE_CODE) {
             $data = $this->arrayManager->remove(
                 $this->arrayManager->findPath(CustomOptionsModifier::FIELD_ENABLE, $data),
                 $data
@@ -66,7 +67,7 @@ class CustomOptions extends \Magento\Catalog\Ui\DataProvider\Product\Form\Modifi
      */
     public function modifyMeta(array $meta)
     {
-        if ($this->locator->getProduct()->getTypeId() === \Magefox\Membership\Model\Product\Type\Membership::TYPE_CODE) {
+        if ($this->locator->getProduct()->getTypeId() === Membership::TYPE_CODE) {
             $meta = $this->arrayManager->remove(CustomOptionsModifier::GROUP_CUSTOM_OPTIONS_NAME, $meta);
         }
 
