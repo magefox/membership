@@ -1,4 +1,4 @@
-# Magento 2 Membership
+# Membership for Magento 2
 [![Join the chat at https://gitter.im/magefox/membership](https://badges.gitter.im/magefox/membership.svg)](https://gitter.im/magefox/membership?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://img.shields.io/travis/magefox/membership.svg?style=flat)](https://travis-ci.org/magefox/membership)
 [![Latest Stable Version](https://poser.pugx.org/magefox/membership/v/stable)](https://packagist.org/packages/magefox/membership)
@@ -6,7 +6,7 @@
 [![Software License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://opensource.org/licenses/MIT)
 ## Description
 
-Membership extension for Magento 2 brings comfort and convenience for the owner stores to create and manage their membership packages.
+Membership extension for Magento 2 brings comfort and convenience for the owner stores to create and manage their membership packages. It offers a complete membership solution, allowing you to accept member payments, manage members, create subscription plans
 <!--- [Try Demo](http://demo.magefox.com) --->
 
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/sGdYDtqSssE/0.jpg)](http://www.youtube.com/watch?v=sGdYDtqSssE)
@@ -14,7 +14,8 @@ Membership extension for Magento 2 brings comfort and convenience for the owner 
 ## Features
 - 100% open source.
 - Easily switch On/Off the Membership functionality.
-- Daily check membership status
+- Assign user to a group when come to membership.
+- Daily check membership status.
 - Supports Magento Multi-stores.
 - Compatible with CE: 2.2
 
