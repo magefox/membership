@@ -18,3 +18,19 @@ script:
     - php vendor/bin/phpcs --runtime-set ignore_warnings_on_exit true --standard=PSR2 Api/ Block/ Cron/ Helper/ Model/ Observer/ Setup/ Ui/
     - php vendor/bin/phpmd Api/,Block/,Cron/,Helper/,Model/,Observer/,Setup/,Ui/ text unusedcode
     - php vendor/bin/phpcpd Api/ Block/ Cron/ Helper/ Model/ Observer/ Setup/ Ui/
+
+before_deploy:
+    - rm -rf .github
+    - rm -rf .travis.yml
+    - rm -rf vendor
+    - rm -rf .git
+    - rm -rf composer.lock
+    - zip -r membership.zip .
+
+deploy:
+    provider: releases
+    api_key: "$GITHUB_OAUTH"
+    file: "membership.zip"
+    skip_cleanup: true
+    on:
+        tags: true
