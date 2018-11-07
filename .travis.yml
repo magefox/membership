@@ -27,7 +27,7 @@ before_deploy:
 
 deploy:
     provider: releases
-    api_key: $GITHUB_OAUTH
+    api_key: "$GITHUB_OAUTH"
     file: "membership.zip"
     skip_cleanup: true
     on:
