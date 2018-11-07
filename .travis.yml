@@ -23,6 +23,8 @@ before_deploy:
     - rm -rf .github
     - rm -rf .travis.yml
     - rm -rf vendor
+    - rm -rf .git
+    - rm -rf composer.lock
     - zip -r membership.zip .
 
 deploy:
