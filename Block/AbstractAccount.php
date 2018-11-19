@@ -6,9 +6,9 @@
  * @license MIT
  *******************************************************/
 
-namespace Magefox\Membership\Block\Account\Dashboard;
+namespace Magefox\Membership\Block;
 
-class Status extends \Magento\Framework\View\Element\Template
+class AbstractAccount extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var \Magento\Customer\Model\Session
@@ -21,28 +21,20 @@ class Status extends \Magento\Framework\View\Element\Template
     protected $customerManagement;
 
     /**
-     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
-     */
-    protected $localeDate;
-
-    /**
      * Avatar constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magefox\Membership\Api\CustomerManagementInterface $customerManagement
-     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession,
         \Magefox\Membership\Api\CustomerManagementInterface $customerManagement,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         array $data = []
     ) {
         $this->customerSession = $customerSession;
         $this->customerManagement = $customerManagement;
-        $this->localeDate = $localeDate;
 
         parent::__construct($context, $data);
     }
@@ -55,42 +47,5 @@ class Status extends \Magento\Framework\View\Element\Template
     public function getCustomer()
     {
         return $this->customerSession->getCustomer();
-    }
-
-    /**
-     * Get expire time
-     *
-     * @return string
-     */
-    public function getExpiry()
-    {
-        $expiry = $this->customerManagement->getExpiry($this->getCustomer());
-        return $this->localeDate->date($expiry)->format('M d, Y H:i:s');
-    }
-
-    /**
-     * Get days to membership expire.
-     *
-     * @return int
-     */
-    public function getDaysLeft()
-    {
-        return $this->customerManagement->getDaysLeft($this->getCustomer());
-    }
-
-    /**
-     * Produce and return block's html output
-     *
-     * This method should not be overridden. You can override _toHtml() method in descendants if needed.
-     *
-     * @return string
-     */
-    public function toHtml()
-    {
-        if (!$this->customerManagement->isMembership($this->getCustomer())) {
-            return '';
-        }
-
-        return parent::toHtml();
     }
 }

@@ -41,6 +41,11 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     protected $dateTime;
 
     /**
+     * @var \Magento\Framework\Event\ManagerInterface
+     */
+    protected $eventManager;
+
+    /**
      * @var \Magefox\Membership\Helper\Config
      */
     protected $configHelper;
@@ -50,6 +55,18 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
      */
     protected $orderHelper;
 
+    /**
+     * CustomerManagement constructor.
+     *
+     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @param \Magento\Framework\Api\Search\FilterGroup $filterGroup
+     * @param \Magento\Framework\Api\Filter $filter
+     * @param \Magento\Customer\Api\GroupManagementInterface $groupManagement
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
+     * @param \Magefox\Membership\Helper\Config $configHelper
+     * @param \Magefox\Membership\Helper\Order $orderHelper
+     */
     public function __construct(
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
         \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria,
@@ -57,6 +74,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
         \Magento\Framework\Api\Filter $filter,
         \Magento\Customer\Api\GroupManagementInterface $groupManagement,
         \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
+        \Magento\Framework\Event\ManagerInterface $eventManager,
         \Magefox\Membership\Helper\Config $configHelper,
         \Magefox\Membership\Helper\Order $orderHelper
     ) {
@@ -66,6 +84,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
         $this->filter = $filter;
         $this->groupManagement = $groupManagement;
         $this->dateTime = $dateTime;
+        $this->eventManager = $eventManager;
         $this->configHelper = $configHelper;
         $this->orderHelper = $orderHelper;
     }
@@ -116,6 +135,14 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
             return $customer;
         }
 
+        $this->eventManager->dispatch(
+            'membership_before_invoke',
+            [
+                'customer'  => $customer,
+                'order'     => $order
+            ]
+        );
+
         $expiry = $this->calculateExpiryDate($order)
             ->format(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
 
@@ -124,8 +151,16 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
             ->setCustomAttribute('membership_order_id', $order->getIncrementId())
             ->setGroupId($this->getGroupId($order));
 
-        $customer->updateData($customerData)
+        $customer = $customer->updateData($customerData)
             ->save();
+
+        $this->eventManager->dispatch(
+            'membership_after_invoke',
+            [
+                'customer'  => $customer,
+                'order'     => $order
+            ]
+        );
 
         return $customer;
     }
@@ -133,21 +168,35 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     /**
      * Remove a given customers Membership.
      *
-     * @param \Magento\Customer\Model\Customer $customer
+     * @param  \Magento\Customer\Model\Customer $customer
      * @return \Magento\Customer\Model\Customer
      * @throws \Exception
      */
     public function revokeMembership(
         \Magento\Customer\Model\Customer $customer
     ) {
+        $this->eventManager->dispatch(
+            'membership_before_revoke',
+            [
+                'customer' => $customer
+            ]
+        );
+
         $expiry = $this->dateTime->gmtDate(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
 
         $customerData = $customer->getDataModel();
         $customerData->setCustomAttribute('membership_expiry', $expiry)
             ->setGroupId($this->configHelper->getRevokeGroup());
 
-        $customer->updateData($customerData)
+        $customer = $customer->updateData($customerData)
             ->save();
+
+        $this->eventManager->dispatch(
+            'membership_after_revoke',
+            [
+                'customer' => $customer
+            ]
+        );
 
         return $customer;
     }
@@ -155,7 +204,7 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
     /**
      * Check customer is membership.
      *
-     * @param \Magento\Customer\Model\Customer $customer
+     * @param  \Magento\Customer\Model\Customer $customer
      * @return bool
      */
     public function isMembership(\Magento\Customer\Model\Customer $customer)

@@ -1,0 +1,46 @@
+<?php
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+?>
+<?php
+/**
+ * @var $block \Magefox\Membership\Block\Account\Information
+ */
+?>
+<div class="block block-membership block-membership-information">
+    <div class="block-title">
+        <strong><?= /* @escapeNotVerified */ __('Membership Information') ?></strong>
+    </div>
+    <div class="block-content">
+        <p><strong><?= /* @escapeNotVerified */ __('Type')?>:</strong> <?= /* @escapeNotVerified */ $block->getCustomerGroup()?></p>
+        <p><strong><?= /* @escapeNotVerified */ __('Days left')?>:</strong> <?= /* @escapeNotVerified */ $block->getDaysLeft()?></p>
+        <p><strong><?= /* @escapeNotVerified */ __('Expiry date')?>:</strong> <?= /* @escapeNotVerified */ $block->getExpiry()?></p>
+        <a class="cancel-subscription" href="javascript:void"><?= /* @escapeNotVerified */__('Cancel') ?></a>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm'
+    ], function ($, confirm) {
+        $(document).ready(function () {
+            $('.block-membership-information .cancel-subscription').click(function (e) {
+                e.preventDefault();
+
+                confirm({
+                    title: '<?= /* @escapeNotVerified */ __('Cancel subscription')?>',
+                    content: '<?= /* @escapeNotVerified */ __('Are you sure to cancel membership subscription?')?>',
+                    actions: {
+                        confirm: function () {
+                            window.location.href = '<?= /* @escapeNotVerified */ $block->getUrl('membership/subscription/cancel') ?>';
+                        }
+                    }
+                });
+            });
+        });
+    });
+</script>
