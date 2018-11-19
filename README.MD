@@ -9,7 +9,7 @@
 Membership extension for Magento 2 brings comfort and convenience for the owner stores to create and manage their membership packages. It offers a complete membership solution, allowing you to accept member payments, manage members, create subscription plans
 <!--- [Try Demo](http://demo.magefox.com) --->
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/sGdYDtqSssE/0.jpg)](http://www.youtube.com/watch?v=sGdYDtqSssE)
+[![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/magefox/membership/master/.github/images/with-player.png)](http://www.youtube.com/watch?v=sGdYDtqSssE)
 
 ## Features
 - 100% open source.
