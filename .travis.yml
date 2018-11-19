@@ -21,6 +21,7 @@ script:
 
 before_deploy:
     - rm -rf .github
+    - rm -rf auth.json
     - rm -rf .travis.yml
     - rm -rf vendor
     - rm -rf .git
