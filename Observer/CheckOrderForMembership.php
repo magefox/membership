@@ -1,9 +1,9 @@
 <?php
 /******************************************************
- * @package Magento 2 Membership
- * @author http://www.magefox.com
+ * @package   Magento 2 Membership
+ * @author    http://www.magefox.com
  * @copyright (C) 2018 - Magefox.Com
- * @license MIT
+ * @license   MIT
  *******************************************************/
 
 namespace Magefox\Membership\Observer;
@@ -52,7 +52,7 @@ class CheckOrderForMembership implements \Magento\Framework\Event\ObserverInterf
     /**
      * Execute when trigger 'checkout_onepage_controller_success_action' event
      *
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param  \Magento\Framework\Event\Observer $observer
      * @throws \Exception
      */
     public function execute(\Magento\Framework\Event\Observer $observer)

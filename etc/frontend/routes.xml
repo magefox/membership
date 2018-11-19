@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership Advanced
+ * @author http://www.magefox.com
+ * @copyright (C) 2018 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="membership" frontName="membership">
+            <module name="Magefox_Membership" />
+        </route>
+    </router>
+</config>
