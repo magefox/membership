@@ -8,6 +8,8 @@
 
 namespace Magefox\Membership\Model\Product\Type;
 
+use Magento\Framework\Exception\LocalizedException;
+
 class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
 {
     const TYPE_CODE = 'membership';
@@ -128,6 +130,24 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
             return __("You need to be logged in to purchase a membership.");
         }
 
+        try {
+            $this->checkExistsInCart($product);
+        } catch (LocalizedException $e) {
+            return $e->getMessage();
+        }
+
+        return parent::_prepareProduct($buyRequest, $product, $processMode);
+    }
+
+    /**
+     * Check membership product existed in cart
+     *
+     * @param \Magento\Catalog\Model\Product $product
+     * @throws LocalizedException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    protected function checkExistsInCart(\Magento\Catalog\Model\Product $product)
+    {
         $quote = $this->checkoutSession->getQuote();
         $items = $quote->getAllItems();
         foreach ($items as $item) {
@@ -135,10 +155,8 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
              * @var \Magento\Quote\Model\Quote\Item $item
              */
             if ($item->getProductType() == self::TYPE_CODE) {
-                return __("Membership product existed in your cart, please remove and try again.");
+                throw new LocalizedException(__("Membership product existed in your cart, please remove and try again."));
             }
         }
-
-        return parent::_prepareProduct($buyRequest, $product, $processMode);
     }
 }
