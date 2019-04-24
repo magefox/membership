@@ -237,6 +237,6 @@ class CustomerManagement implements \Magefox\Membership\Api\CustomerManagementIn
             new \DateTimeZone('UTC')
         );
 
-        return $today->diff($expiry)->days;
+        return $today->getTimestamp() < $expiry->getTimestamp() ? $today->diff($expiry)->days : 0;
     }
 }
