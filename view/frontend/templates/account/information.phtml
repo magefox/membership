@@ -11,6 +11,7 @@
  * @var $block \Magefox\Membership\Block\Account\Information
  */
 ?>
+<?php if ($block->isMembership()):?>
 <div class="block block-membership block-membership-information">
     <div class="block-title">
         <strong><?= /* @escapeNotVerified */ __('Membership Information') ?></strong>
@@ -19,7 +20,7 @@
         <p><strong><?= /* @escapeNotVerified */ __('Type')?>:</strong> <?= /* @escapeNotVerified */ $block->getCustomerGroup()?></p>
         <p><strong><?= /* @escapeNotVerified */ __('Days left')?>:</strong> <?= /* @escapeNotVerified */ $block->getDaysLeft()?></p>
         <p><strong><?= /* @escapeNotVerified */ __('Expiry date')?>:</strong> <?= /* @escapeNotVerified */ $block->getExpiry()?></p>
-        <a class="cancel-subscription" href="javascript:void"><?= /* @escapeNotVerified */__('Cancel') ?></a>
+        <a class="cancel-subscription" href="javascript:void(0)"><?= /* @escapeNotVerified */__('Cancel') ?></a>
     </div>
 </div>
 <script type="text/javascript">
@@ -44,3 +45,6 @@
         });
     });
 </script>
+<?php else:?>
+    <div class="message info empty"><span><?= /* @escapeNotVerified */ __('You are not a membership yet.') ?></span></div>
+<?php endif;?>

@@ -60,6 +60,13 @@ There you will be able to fill several sections:
 - **Confirmed Order Status**. When a Membership product is purchased, which order status should used to enable Membership status.
 
 ## Release Notes
+### 1.1.0
+- Fix issue expire time when overtime
+- Add message to "My Membership" page when customer is not membership yet
+- Compatible with Magento 2.3
+- Improved performance
+- Bug fixes
+
 ### 1.0.3
 - Fix issue Update Qty in Backend
 - Improved performance

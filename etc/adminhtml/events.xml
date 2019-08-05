@@ -8,7 +8,7 @@
  *******************************************************/
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="sales_order_save_after">
-        <observer name="membership_check_order_for_membership" instance="Magefox\Membership\Observer\CheckOrderForMembership" />
+    <event name="adminhtml_customer_prepare_save">
+        <observer name="adminhtml_prepare_membership_expiry" instance="Magefox\Membership\Observer\Adminhtml\CheckMembershipExpiry" />
     </event>
 </config>
