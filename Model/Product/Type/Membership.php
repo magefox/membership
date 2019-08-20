@@ -9,10 +9,13 @@
 namespace Magefox\Membership\Model\Product\Type;
 
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\DataObject;
+use Magento\Catalog\Model\Product;
 
 class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
 {
     const TYPE_CODE = 'membership';
+    const MAX_BUY_QTY = 1;
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -105,7 +108,7 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      * @return void
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function deleteTypeSpecificData(\Magento\Catalog\Model\Product $product)
+    public function deleteTypeSpecificData(Product $product)
     {
     }
 
@@ -118,7 +121,7 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      * @return array|string
      */
     // @codingStandardsIgnoreLine
-    protected function _prepareProduct(\Magento\Framework\DataObject $buyRequest, $product, $processMode)
+    protected function _prepareProduct(DataObject $buyRequest, $product, $processMode)
     {
         // Don't allow the customer to purchase if functionality is disabled.
         if (!$this->configHelper->isEnabled()) {
@@ -131,6 +134,7 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
         }
 
         try {
+            $this->validateQty($buyRequest);
             $this->checkExistsInCart($product);
         } catch (LocalizedException $e) {
             return $e->getMessage();
@@ -144,9 +148,8 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      *
      * @param \Magento\Catalog\Model\Product $product
      * @throws LocalizedException
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function checkExistsInCart(\Magento\Catalog\Model\Product $product)
+    protected function checkExistsInCart(Product $product)
     {
         $quote = $this->checkoutSession->getQuote();
         $items = $quote->getAllItems();
@@ -157,6 +160,19 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
             if ($item->getProductType() == self::TYPE_CODE) {
                 throw new LocalizedException(__("Membership product existed in your cart, please remove and try again."));
             }
+        }
+    }
+
+    /**
+     * Prepare Quote Item Quantity
+     *
+     * @param DataObject $buyRequest
+     * @throws LocalizedException
+     */
+    public function validateQty(DataObject $buyRequest)
+    {
+        if ($buyRequest->getData('qty') > self::MAX_BUY_QTY) {
+            throw new LocalizedException(__("Can't place greater than 1 membership items at a time."));
         }
     }
 }
