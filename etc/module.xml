@@ -3,12 +3,12 @@
 /******************************************************
  * @package Magento 2 Membership
  * @author http://www.magefox.com
- * @copyright (C) 2018 - Magefox.Com
+ * @copyright (C) 2020 - Magefox.Com
  * @license MIT
  *******************************************************/
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Magefox_Membership" setup_version="1.0.3">
+    <module name="Magefox_Membership" setup_version="1.1.0">
         <sequence>
             <module name="Magento_Catalog"/>
             <module name="Magento_Customer"/>

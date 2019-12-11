@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/******************************************************
+ * @package Magento 2 Membership
+ * @author http://www.magefox.com
+ * @copyright (C) 2020 - Magefox.Com
+ * @license MIT
+ *******************************************************/
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="membership">
+        <container name="container_membership_length" component="Magento_Ui/js/form/components/group">
+            <field name="membership_length" formElement="input">
+                <settings>
+                    <validation>
+                        <rule name="validate-greater-than-zero" xsi:type="boolean">true</rule>
+                    </validation>
+                </settings>
+            </field>
+        </container>
+    </fieldset>
+</form>

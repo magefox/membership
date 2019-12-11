@@ -2,42 +2,47 @@
 /******************************************************
  * @package Magento 2 Membership
  * @author http://www.magefox.com
- * @copyright (C) 2018 - Magefox.Com
+ * @copyright (C) 2020 - Magefox.Com
  * @license MIT
  *******************************************************/
 
 namespace Magefox\Membership\Block\Account;
 
+use Magento\Framework\View\Element\Template\Context;
+use Magento\Customer\Model\Session as CustomerSession;
 use Magefox\Membership\Block\AbstractAccount;
+use Magefox\Membership\Api\CustomerManagementInterface;
+use Magento\Customer\Model\GroupFactory;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 class Information extends AbstractAccount
 {
     /**
-     * @var \Magento\Customer\Model\GroupFactory
+     * @var GroupFactory
      */
     protected $customerGroupFactory;
 
     /**
-     * @var \Magento\Framework\Stdlib\DateTime\TimezoneInterface
+     * @var TimezoneInterface
      */
     protected $localeDate;
 
     /**
      * Information constructor.
      *
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magefox\Membership\Api\CustomerManagementInterface $customerManagement
-     * @param \Magento\Customer\Model\GroupFactory $customerGroupFactory
-     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param Context $context
+     * @param CustomerSession $customerSession
+     * @param CustomerManagementInterface $customerManagement
+     * @param GroupFactory $customerGroupFactory
+     * @param TimezoneInterface $localeDate
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magefox\Membership\Api\CustomerManagementInterface $customerManagement,
-        \Magento\Customer\Model\GroupFactory $customerGroupFactory,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
+        Context $context,
+        CustomerSession $customerSession,
+        CustomerManagementInterface $customerManagement,
+        GroupFactory $customerGroupFactory,
+        TimezoneInterface $localeDate,
         array $data = []
     ) {
         $this->customerGroupFactory = $customerGroupFactory;
@@ -81,18 +86,12 @@ class Information extends AbstractAccount
     }
 
     /**
-     * Produce and return block's html output
+     * Check customer is membership
      *
-     * This method should not be overridden. You can override _toHtml() method in descendants if needed.
-     *
-     * @return string
+     * @return bool
      */
-    public function toHtml()
+    public function isMembership()
     {
-        if (!$this->customerManagement->isMembership($this->getCustomer())) {
-            return '';
-        }
-
-        return parent::toHtml();
+        return $this->customerManagement->isMembership($this->getCustomer());
     }
 }
