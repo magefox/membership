@@ -7,6 +7,8 @@
  * @license MIT
  *******************************************************/
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magefox\Membership\Api\CustomerManagementInterface" type="Magefox\Membership\Model\CustomerManagement"/>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <order>
+        <available_product_type name="membership"/>
+    </order>
 </config>

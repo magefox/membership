@@ -8,7 +8,7 @@
  *******************************************************/
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="adminhtml_customer_prepare_save">
-        <observer name="adminhtml_prepare_membership_expiry" instance="Magefox\Membership\Observer\Adminhtml\CheckMembershipExpiry" />
+    <event name="sales_quote_item_qty_set_after">
+        <observer name="membership_validate_quote_item_qty" instance="Magefox\Membership\Observer\ValidateQuoteItemQty" />
     </event>
 </config>

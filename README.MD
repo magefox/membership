@@ -37,7 +37,7 @@ In the Magento root directory
 - Install the module
 ```
 composer require magefox/membership
-php bin/magento module:enable Magefox_Membership 
+php bin/magento module:enable Magefox_Membership
 php bin/magento setup:upgrade
 ```
 
@@ -62,7 +62,11 @@ There you will be able to fill several sections:
 ## Release Notes
 ### 1.1.0
 - Fix issue expire time when overtime
+- Fix can purchase greater than 1 membership product qty when change qty in cart page
+- Add validate greater than zero when set "Length" field
 - Add message to "My Membership" page when customer is not membership yet
+- Add function to change customer group when change expire time in backend
+- Add function to sell membership products in backend
 - Compatible with Magento 2.3
 - Improved performance
 - Bug fixes

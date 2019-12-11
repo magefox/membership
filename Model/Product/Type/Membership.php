@@ -2,7 +2,7 @@
 /******************************************************
  * @package Magento 2 Membership
  * @author http://www.magefox.com
- * @copyright (C) 2018 - Magefox.Com
+ * @copyright (C) 2020 - Magefox.Com
  * @license MIT
  *******************************************************/
 
@@ -148,6 +148,7 @@ class Membership extends \Magento\Catalog\Model\Product\Type\AbstractType
      *
      * @param \Magento\Catalog\Model\Product $product
      * @throws LocalizedException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function checkExistsInCart(Product $product)
     {
