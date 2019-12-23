@@ -17,7 +17,7 @@ Membership extension for Magento 2 brings comfort and convenience for the owner 
 - Assign user to a group when come to membership.
 - Daily check membership status.
 - Supports Magento Multi-stores.
-- Compatible with CE: 2.2
+- Compatible with CE: 2.2, 2.3
 
 ## Installation
 ### Manual (without composer)
@@ -67,6 +67,7 @@ There you will be able to fill several sections:
 - Add message to "My Membership" page when customer is not membership yet
 - Add function to change customer group when change expire time in backend
 - Add function to sell membership products in backend
+- Add support PHP 7.2
 - Compatible with Magento 2.3
 - Improved performance
 - Bug fixes
