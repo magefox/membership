@@ -11,7 +11,7 @@
     }
   ],
   "require": {
-    "magento/module-catalog": "102.0.*",
+    "magento/module-catalog": "103.0.*",
     "magento/module-customer": "102.0.*"
   },
   "require-dev": {
