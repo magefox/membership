@@ -11,6 +11,10 @@
     <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
         <arguments>
             <argument name="modifiers" xsi:type="array">
+                <item name="membership-length" xsi:type="array">
+                    <item name="class" xsi:type="string">Magefox\Membership\Ui\DataProvider\Catalog\Product\Form\Modifier\MembershipLength</item>
+                    <item name="sortOrder" xsi:type="number">71</item>
+                </item>
                 <item name="membership-custom-options" xsi:type="array">
                     <item name="class" xsi:type="string">Magefox\Membership\Ui\DataProvider\Catalog\Product\Form\Modifier\CustomOptions</item>
                     <item name="sortOrder" xsi:type="number">72</item>
